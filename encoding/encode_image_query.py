@@ -15,18 +15,23 @@ text_model = SentenceTransformer('sentence-transformers/clip-ViT-B-32-multilingu
 # text_model = quantize_dynamic(text_model, {nn.Linear}, dtype=torch.qint8)
 
 
-def process_image(file):
+def encode_image(file):
     """
     Encode an image:
     :param file: path to image file
     :return: vector embedding of image
     """
-    img = model.encode(Image.open(file))
-    img_emb = model.encode(img)
-    return img_emb.tolist()
+    img_emb = model.encode(Image.open(file))
+
+    return img_emb
 
 
-def encode(sentences):
+def encode_query(query):
+    """
+    Encode a text query:
+    :param query: string
+    :return: text embedding
+    """
     #Encode text descriptions
-    text_emb = text_model.encode(sentences)
+    text_emb = text_model.encode(query)
     return text_emb
