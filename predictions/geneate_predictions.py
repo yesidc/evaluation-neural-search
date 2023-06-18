@@ -10,39 +10,6 @@ import logging
 # create logger
 logger = logging.getLogger('evaluation')
 
-def compute_predictions(anno_bison, val_img_path, validation_captions):
-    # path to image folder must end with /
-    
-    prediction = []
-
-    for b_id in tqdm(anno_bison):
-        b_data = anno_bison[b_id]
-        img_1 = {}
-        img_2 = {}
-        # encode candidate images
-        img_1['vector_embedding'] = encode_image(val_img_path + b_data['image_candidates'][0]['image_filename'])
-        img_1['img_id'] = b_data['image_candidates'][0]['image_id']
-
-        img_2['vector_embedding'] = encode_image(val_img_path + b_data['image_candidates'][1]['image_filename'])
-        img_2['img_id'] = b_data['image_candidates'][1]['image_id']
-
-        # encode query
-        query_emb = encode_query(validation_captions[b_data['caption_id']])
-        # compute similarity
-        predicted_img = compute_similarity(img_1,img_2, query_emb, b_id)
-        prediction.append(predicted_img)
-
-        if b_id == 50:
-            break
-    # save prediction to json file
-    with open('./predictions/prediction.json', 'w') as outfile:
-        json.dump(prediction, outfile)
-    print('Predictions saved to prediction.json')
-    return prediction
-        
-
-
-
 
 def compute_similarity(img_1,img_2, query_emb, bison_id):
 
@@ -83,5 +50,37 @@ def compute_similarity(img_1,img_2, query_emb, bison_id):
         print(f'Similarity is equal {predicted_img}')
 
     return predicted_img
+
+
+
+def compute_predictions(anno_bison, val_img_path, validation_captions):
+    # path to image folder must end with /
+    
+    prediction = []
+
+    for b_id in tqdm(anno_bison):
+        b_data = anno_bison[b_id]
+        img_1 = {}
+        img_2 = {}
+        # encode candidate images
+        img_1['vector_embedding'] = encode_image(val_img_path + b_data['image_candidates'][0]['image_filename'])
+        img_1['img_id'] = b_data['image_candidates'][0]['image_id']
+
+        img_2['vector_embedding'] = encode_image(val_img_path + b_data['image_candidates'][1]['image_filename'])
+        img_2['img_id'] = b_data['image_candidates'][1]['image_id']
+
+        # encode query
+        query_emb = encode_query(validation_captions[b_data['caption_id']])
+        # compute similarity
+        predicted_img = compute_similarity(img_1,img_2, query_emb, b_id)
+        prediction.append(predicted_img)
+
+    # save prediction to json file
+    with open('./predictions/prediction.json', 'w') as outfile:
+        json.dump(prediction, outfile)
+    print('Predictions saved to prediction.json')
+    return prediction
+        
+
 
 

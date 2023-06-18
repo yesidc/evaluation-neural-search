@@ -6,12 +6,16 @@
 # This source code is licensed under the license found in the
 # LICENSE file in the root directory of this source tree.
 # Attribution-NonCommercial 4.0 International
-#https://github.com/facebookresearch/binary-image-selection/blob/main/LICENSE
-#
+# https://github.com/facebookresearch/binary-image-selection/blob/main/LICENSE
+
+# NOTE: This code was altered to serve the purpose of the project. The original code can be found at the link above.
+# ValidationCaptions class was added to read the validation captions file. Prediction class was altered to accept a
+# dictionary as input. Annotation class was altered. Added __iter__ the functions main() nad _commandline_parser()
+# were moved to main.py, and modified to serve the purpose of the project.
+
 
 import os
 import json
-
 
 import numpy as np
 
@@ -22,7 +26,7 @@ class BisonEval:
             print('[Warning] The prediction does not' +
                   'cover the entire set of bison data.' +
                   'The evaluation is running on the {}'.format(
-                        len(pred.getBisonIds())) +
+                      len(pred.getBisonIds())) +
                   'subset from prediction file.')
         self.params = {'bison_ids': pred.getBisonIds()}
         self.anno = anno
@@ -41,6 +45,7 @@ class BisonEval:
         )
         return mean_accuracy
 
+
 class ValidationCaptions:
     def __init__(self, val_captions_path):
         assert os.path.exists(val_captions_path), 'Validation file does not exist'
@@ -49,11 +54,8 @@ class ValidationCaptions:
         # id refers to the caption id
         self._data = {anno['id']: anno['caption'] for anno in validation_captions['annotations']}
 
-
     def __getitem__(self, key):
         return self._data[key]
-
-
 
 
 class Annotation:
@@ -76,7 +78,7 @@ class Annotation:
 
 
 class Prediction:
-    def __init__(self, pred_filepath=None,pred_results=None):
+    def __init__(self, pred_filepath=None, pred_results=None):
         if pred_filepath:
             assert os.path.exists(pred_filepath), 'Prediction file does not exist'
             with open(pred_filepath) as fd:
@@ -90,10 +92,3 @@ class Prediction:
 
     def __getitem__(self, key):
         return self._data[key]
-
-
-
-
-
-
-
