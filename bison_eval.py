@@ -31,6 +31,8 @@ class BisonEval:
     def evaluate(self):
         accuracy = []
         for bison_id in self.params['bison_ids']:
+            if self.pred[bison_id] is None:
+                continue
             accuracy.append(self.anno[bison_id]['true_image_id'] ==
                             self.pred[bison_id])
         mean_accuracy = np.mean(accuracy)
@@ -74,12 +76,13 @@ class Annotation:
 
 
 class Prediction:
-    def __init__(self, pred_filepath):
-        assert os.path.exists(pred_filepath), 'Prediction file does not exist'
-        with open(pred_filepath) as fd:
-            pred_results = json.load(fd)
+    def __init__(self, pred_filepath=None,pred_results=None):
+        if pred_filepath:
+            assert os.path.exists(pred_filepath), 'Prediction file does not exist'
+            with open(pred_filepath) as fd:
+                pred_results = json.load(fd)
 
-        self._data = {result['bison_id']: result['predicted_image_id']
+        self._data = {result['bison_id']: result['predicted_img_id']
                       for result in pred_results}
 
     def getBisonIds(self):
