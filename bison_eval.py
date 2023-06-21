@@ -16,7 +16,7 @@
 
 import os
 import json
-
+from tqdm import tqdm
 import numpy as np
 
 
@@ -34,12 +34,37 @@ class BisonEval:
 
     def evaluate(self):
         accuracy = []
-        for bison_id in self.params['bison_ids']:
+        wrong_predictions = []
+        correct_predictions = []
+        for bison_id in tqdm(self.params['bison_ids']):
+            current_datapoint = None
             if self.pred[bison_id] is None:
                 continue
-            accuracy.append(self.anno[bison_id]['true_image_id'] ==
-                            self.pred[bison_id])
+            result = self.anno[bison_id]['true_image_id'] == self.pred[bison_id]['predicted_img_id']
+            accuracy.append(result)
+
+            current_datapoint = {
+                    'bison_id': bison_id,
+                    'high_similarity': self.pred[bison_id]['high_similarity'],
+                    'low_similarity': self.pred[bison_id]['low_similarity'],
+                    'true_image_id': self.anno[bison_id]['true_image_id'],
+                    'predicted_img_id': self.pred[bison_id]['predicted_img_id'],
+            }
+            # if prediction is wrong
+            if not result:
+                wrong_predictions.append(current_datapoint)
+            else:
+                correct_predictions.append(current_datapoint )
+
+        # save correct predictions to json file
+        with open('./predictions/correct_predictions.json', 'w') as fd:
+            json.dump(correct_predictions, fd)
+        # compute BISON accuracy
         mean_accuracy = np.mean(accuracy)
+        # save wrong predictions to json file
+        with open('./predictions/wrong_predictions.json', 'w') as fd:
+            json.dump(wrong_predictions, fd)
+
         print("[Result] Mean BISON accuracy on {}: {:.2f}%".format(
             self.anno.dataset, mean_accuracy * 100)
         )
@@ -84,7 +109,7 @@ class Prediction:
             with open(pred_filepath) as fd:
                 pred_results = json.load(fd)
 
-        self._data = {result['bison_id']: result['predicted_img_id']
+        self._data = {result['bison_id']: result
                       for result in pred_results}
 
     def getBisonIds(self):

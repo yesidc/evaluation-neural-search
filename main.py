@@ -20,7 +20,7 @@ def _command_line_parser():
     parser.add_argument('--anno_bison_path', default=default_anno,
                         help='Path to the bison annotation file')
 
-    parser.add_argument('--create_pred_file', default=True,
+    parser.add_argument('--create_pred_file', default=False,
                         help='Create a prediction file prediction.json')
     parser.add_argument('--pred_path', default=default_pred,
                         help='Path to the prediction file')
@@ -45,7 +45,8 @@ def main(args):
         pred = Prediction(pred_filepath=args.pred_path)
     bison = BisonEval(anno_bison, pred)
     mean_accuracy = bison.evaluate()
-    logger.info(f'Mean BISON accuracy on {anno_bison.dataset}: {mean_accuracy}%')
+    print(mean_accuracy)
+    #logger.info(f'Mean BISON accuracy on {anno_bison.dataset}: {mean_accuracy}%')
 
 
 
