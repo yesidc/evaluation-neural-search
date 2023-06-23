@@ -1,0 +1,2 @@
+[INFO] 2023-06-23 00:25:24,226 encode_image_query.py <module>  22: CLIP model has been quantized.
+[INFO] 2023-06-23 09:40:38,516 main.py main  49: Quantized Model. Mean BISON accuracy on COCO-captions.val2014: 0.8063517224853926%
