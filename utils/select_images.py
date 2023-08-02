@@ -33,5 +33,5 @@ def select_random_files(source_dir, destination_dir, num_files):
 
 
 select_random_files('/Users/yesidcano/Downloads/val2014',
-                    '/Users/yesidcano/Downloads/latency_images',
-                    100)
+                    '/Users/yesidcano/Downloads/latency_images_1000',
+                    1000)
