@@ -1,1 +1,3 @@
 [INFO] 2023-06-18 23:42:52,974 main.py main  48: Mean BISON accuracy on COCO-captions.val2014: 0.8213370689178479%
+[INFO] 2023-08-02 22:48:21,182 model_size.py <module>  42: Image model size (Non-quantized): 577.23 MB
+[INFO] 2023-08-02 22:48:21,184 model_size.py <module>  43: Text model size (Non-quantized): 515.51 MB
