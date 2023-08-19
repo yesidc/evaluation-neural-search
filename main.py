@@ -4,11 +4,7 @@ from predictions.geneate_predictions import compute_predictions
 from logger_evaluation import logger
 import logging
 
-"""
-val_img_path = '/Users/yesidcano/Downloads/val2014/'
-val_captions_path = /Users/yesidcano/Downloads/annotations/captions_val2014.json
-anno_bison_path = /Users/yesidcano/repos/binary-image-selection/annotations/bison_annotations.cocoval2014.json
-"""
+
 # create logger
 logger = logging.getLogger('evaluation')
 
@@ -46,7 +42,7 @@ def main(args):
     bison = BisonEval(anno_bison, pred)
     mean_accuracy = bison.evaluate()
     print(mean_accuracy)
-    #logger.info(f'Mean BISON accuracy on {anno_bison.dataset}: {mean_accuracy}%')
+    logger.info(f'Mean BISON accuracy on {anno_bison.dataset}: {mean_accuracy}%')
 
 
 
