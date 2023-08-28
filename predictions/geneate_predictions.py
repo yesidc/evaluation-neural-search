@@ -12,6 +12,14 @@ logger = logging.getLogger('evaluation')
 
 
 def compute_similarity(img_1,img_2, query_emb, bison_id):
+    """
+    Computes Cosine Similarity
+    :param img_1: dictionary with image id and vector embedding
+    :param img_2: dictionary with image id and vector embedding
+    :param query_emb: query embedding
+    :param bison_id: Bison datapoint ID
+    :return: dictionary with predicted image id, bison id, high similarity and low similarity
+    """
 
     predicted_img = None
     #Compute cosine similarity between all pairs
@@ -54,7 +62,14 @@ def compute_similarity(img_1,img_2, query_emb, bison_id):
 
 
 def compute_predictions(anno_bison, val_img_path, validation_captions):
-    # path to image folder must end with /
+    """
+    Compute predictions
+    :param anno_bison: An instance of the Annotations class that contains the bison dataset information
+    :param val_img_path: Path to the directory that contains the validation images
+    :param validation_captions: An instance of the ValidationCaptions class that contains the validation captions
+    :return: Predictions
+    Note: Path to image folder must end with /
+    """
     
     prediction = []
 
