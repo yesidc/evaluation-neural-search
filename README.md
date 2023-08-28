@@ -35,7 +35,9 @@ Arguments:
 
 To be able to generate a prediction file you must provide a both a path to the validation captions file and the validation images directory. The validation captions file and images (COCO-2014) are available at <a href="https://cocodataset.org/#download">COCO dataset</a>. 
 
-
+## Database
+Hu et al. assemble a database called COCO-BISON, which builds upon the COCO-2014
+dataset validation split. To take a closer look at the validation data used (images and the set of captions that describe each image), we provide a jupyter notebook that gives an overview of the data. The notebook is available `./Notebook/evaluation.ipynb`
 
 
 ## References
