@@ -1,7 +1,7 @@
 # Evaluation-neural-search
 
-This repository contains the code for the evaluation of text-to-image retrieval system. The evaluation is based on the COCO-BISON dataset. The dataset is available at <a href="http://www.hexianghu.com/bison/">COCO-BISON dataset</a>. The dataset contains a total of 54253 examples, 38680 unique images, and 45218 unique captions.
-To evaluate the information retrieval system, we compute the BISON score to determine the ability of the system to match linguistic content with fine-grained visual structure (see Hu at al., 2019). 
+This repository contains the code for the evaluation of a text-to-image retrieval system. The evaluation is based on the COCO-BISON dataset. The dataset is available at <a href="http://www.hexianghu.com/bison/">COCO-BISON dataset</a>. The dataset contains a total of 54253 examples, 38680 unique images, and 45218 unique captions.
+To evaluate the information retrieval system, we compute the BISON score to determine the ability of the system to match linguistic content with fine-grained visual structure (see Hu et al., 2019). 
 
 ## Implementation
 The implementation is based on the <a href="https://github.com/facebookresearch/binary-image-selection/blob/main">BISON repository</a> by Hu et al. (2019). The repository contains the code for the evaluation of the BISON score which was adapted to the needs of this project. 
@@ -33,7 +33,7 @@ Arguments:
 - `--val_captions_path`: Path to the validation captions file.
 - `--val_img_path`: Path to the directory that contains the validation images.
 
-To be able to generate a prediction file you must provide a both a path to the validation captions file and the validation images directory. The validation captions file and images (COCO-2014) are available at <a href="https://cocodataset.org/#download">COCO dataset</a>. 
+To be able to generate a prediction file you must provide  both a path to the validation captions file and the validation images directory. The validation captions file and images (COCO-2014) are available at <a href="https://cocodataset.org/#download">COCO dataset</a>. 
 
 ## Database
 Hu et al. assemble a database called COCO-BISON, which builds upon the COCO-2014
